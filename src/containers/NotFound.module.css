@@ -1,0 +1,17 @@
+.Centered {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    padding-top: calc(100vh * 0.2);
+    color: #ccc;
+}
+
+.Status {
+    font-size: 10rem;
+    font-weight: bold;
+}
+
+.Description {
+    font-size: 2rem;
+    font-weight: bold;
+}
