@@ -22,11 +22,14 @@ const reducer = (state = initialState, action) => {
     case actionTypes.FETCH_JOBS_SUCCESS:
       return fetchJobsSuccess(state, action);
     case actionTypes.FETCH_JOB_SUCCESS:
+    case actionTypes.JOB_STATUS_SUCCESS:
       return fetchJobSuccess(state, action);
     case actionTypes.FETCH_COUNT_JOB_SUCCESS:
       return fechCountJobs(state, action);
     case actionTypes.DELETE_JOB_SUCCESS:
       return deleteJobSuccess(state, action);
+    case actionTypes.JOBS_ACTIVATE_SUCCESS:
+      return jobActivateSuccess(state, action);
     default:
       return state;
   }
@@ -70,6 +73,18 @@ const deleteJobSuccess = (state, action) => {
 
 const fechCountJobs = (state, action) => {
   return updateObject(state, { loading: false, totalDoc: action.totalDoc });
+};
+
+const jobActivateSuccess = (state, action) => {
+  return updateObject(state, {
+    loading: false,
+    jobs: state.jobs.map((job) => {
+      if (job._id === action.job._id) {
+        job = action.job;
+      }
+      return job;
+    }),
+  });
 };
 
 const formSuccess = (state, action) => {

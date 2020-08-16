@@ -12,12 +12,38 @@ import EditIcon from "@material-ui/icons/Edit";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import DescriptionIcon from "@material-ui/icons/Description";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import CancelIcon from "@material-ui/icons/Cancel";
 
 //utility
 import { toIdr } from "../../utils/utility";
 
 export default function CardJob(props) {
-  const { job, onDelete } = props;
+  const { job, onDelete, onStatusChange } = props;
+
+  let active;
+
+  if (job.status === "Active") {
+    active = (
+      <IconButton
+        size="small"
+        onClick={() => onStatusChange("Off", job._id, job.status)}
+      >
+        <CheckCircleIcon style={{ color: "green" }} />
+        Active
+      </IconButton>
+    );
+  } else {
+    active = (
+      <IconButton
+        size="small"
+        onClick={() => onStatusChange("Active", job._id, job.status)}
+      >
+        <CancelIcon style={{ color: "red" }} />
+        Off
+      </IconButton>
+    );
+  }
 
   return (
     <Grid item md={4} sm={4} xs={12} style={{ padding: 5 }}>
@@ -57,6 +83,8 @@ export default function CardJob(props) {
           <IconButton size="small" onClick={() => onDelete(job._id)}>
             <DeleteIcon />
           </IconButton>
+          <Typography variant="body2">Session #{job.session}</Typography>
+          {active}
         </CardActions>
       </Card>
     </Grid>

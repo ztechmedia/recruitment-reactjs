@@ -48,7 +48,8 @@ const SearchJobs = () => {
 
   const fetchJobs = useCallback(
     (query) => {
-      dispatch(jobsActions.fetchJobs(query));
+      let newQuery = `${query}&status=Active`;
+      dispatch(jobsActions.fetchJobs(newQuery));
     },
     [dispatch]
   );

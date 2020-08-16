@@ -1,5 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import axios from "../../axios/axios-main";
+import * as alerts from "../../store/actions/alerts";
 
 const config = {
   headers: {
@@ -129,7 +130,7 @@ export const applyJob = (jobId) => async (dispatch) => {
     jobId: jobId,
   };
   try {
-    start();
+    dispatch(start());
     const response = await axios.post("/api/v1/jobs/apply", data, config);
     if (response)
       dispatch({
@@ -137,6 +138,52 @@ export const applyJob = (jobId) => async (dispatch) => {
         job: response.data.data,
       });
   } catch (err) {
-    fail(err);
+    dispatch(fail(err));
+  }
+};
+
+export const jobStatus = (status, jobId, userId) => async (dispatch) => {
+  const data = {
+    status: status,
+    jobId: jobId,
+    userId: userId,
+  };
+
+  try {
+    dispatch(start());
+    const response = await axios.post("/api/v1/jobs/status", data, config);
+    dispatch({
+      type: actionTypes.JOB_STATUS_SUCCESS,
+      job: response.data.data,
+    });
+    dispatch(
+      alerts.setAlert(
+        "Job status for the applicant has been changed",
+        "success"
+      )
+    );
+  } catch (err) {
+    dispatch(fail());
+  }
+};
+
+export const jobActive = (status, jobId) => async (dispatch) => {
+  const data = {
+    status: status,
+    jobId: jobId,
+  };
+
+  const messageStatus = status === "Avtive" ? "Deactivated" : "Activated";
+
+  try {
+    dispatch(start());
+    const response = await axios.post("/api/v1/jobs/activate", data, config);
+    dispatch({
+      type: actionTypes.JOBS_ACTIVATE_SUCCESS,
+      job: response.data.data,
+    });
+    dispatch(alerts.setAlert(`Job ${messageStatus} successfully`, "success"));
+  } catch (err) {
+    dispatch(fail());
   }
 };

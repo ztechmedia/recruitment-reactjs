@@ -112,6 +112,36 @@ const Jobs = () => {
     }
   };
 
+  const statusChangeHandler = (status, jobId, jobStatus) => {
+    let modal = (
+      <Fragment>
+        <h3>{jobStatus === "Active" ? "Deactivated " : "Activated "}?</h3>
+        <p>
+          Are you sure want to {jobStatus === "Active" ? "Off " : "Activated "}
+          this job?
+        </p>
+        <div className={classes.btnContainer}>
+          <Button
+            color="secondary"
+            onClick={() => dispatch(modalActions.setModalContent(null))}
+          >
+            No
+          </Button>
+          <Button
+            color="primary"
+            onClick={() => {
+              dispatch(jobsActions.jobActive(status, jobId));
+              dispatch(modalActions.setModalContent(null));
+            }}
+          >
+            Yes
+          </Button>
+        </div>
+      </Fragment>
+    );
+    dispatch(modalActions.setModalContent(modal));
+  };
+
   useEffect(() => {
     fetchJobs(`limit=${limit}&page=${page}`);
   }, [fetchJobs]);
@@ -129,8 +159,14 @@ const Jobs = () => {
     if (startIndex === 0) startIndex = 0;
     endIndex = page * limit;
     if (endIndex > totalDoc) endIndex = totalDoc;
+
     jobList = jobs.map((job) => (
-      <CardJob job={job} key={job._id} onDelete={deleteJobHandler} />
+      <CardJob
+        job={job}
+        key={job._id}
+        onDelete={deleteJobHandler}
+        onStatusChange={statusChangeHandler}
+      />
     ));
   }
 
