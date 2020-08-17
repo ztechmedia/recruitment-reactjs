@@ -47,7 +47,7 @@ const headCells = [
     id: "rejectedApplicants",
     numeric: false,
     disablePadding: true,
-    label: "Accepted",
+    label: "Rejected",
   },
   {
     id: "createdAt",

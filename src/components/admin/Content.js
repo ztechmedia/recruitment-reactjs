@@ -1,6 +1,7 @@
 import React from "react";
 
 //material components
+import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 
 const Content = (props) => {
@@ -9,7 +10,9 @@ const Content = (props) => {
   return (
     <main className={classes.content}>
       <div className={classes.toolbar} />
-      {children}
+      <Container maxWidth="lg" className={classes.container}>
+        {children}
+      </Container>
     </main>
   );
 };
@@ -25,7 +28,12 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
+    height: "100vh",
+    overflow: "auto",
+  },
+  container: {
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
   },
 }));
 

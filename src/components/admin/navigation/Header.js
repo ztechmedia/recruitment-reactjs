@@ -145,8 +145,7 @@ const Header = (props) => {
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
-    flex: 1,
-    justifyContent: "space-between",
+    paddingRight: 24,
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,

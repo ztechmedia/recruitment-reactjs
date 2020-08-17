@@ -16,7 +16,6 @@ import Sidebar from "../../components/admin/navigation/Sidebar";
 //ui components
 import Content from "../../components/admin/Content";
 import Modal from "../../components/ui/Modal";
-import Container from "@material-ui/core/Container";
 
 const Admin = (props) => {
   const classes = useStyles();
@@ -34,21 +33,20 @@ const Admin = (props) => {
 
   return (
     <ThemeProvider theme={light ? lightTheme : darkTheme}>
-      <CssBaseline />
-      <Container className={classes.root}>
+      <div className={classes.root}>
+        <CssBaseline />
         <Header onOpenDrawer={drawerOpenHandler} open={open} />
         <Sidebar onCloseDrawer={drawerCloseHandler} open={open} />
         <Content>{children}</Content>
         <Modal />
-      </Container>
+      </div>
     </ThemeProvider>
   );
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
-    padding: 0,
   },
 }));
 
