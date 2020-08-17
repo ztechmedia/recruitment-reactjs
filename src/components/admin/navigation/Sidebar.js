@@ -27,6 +27,7 @@ import Switch from "@material-ui/core/Switch";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import WorkIcon from "@material-ui/icons/Work";
 import ListAltIcon from "@material-ui/icons/ListAlt";
+import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
 import { makeStyles } from "@material-ui/core/styles";
 
 //material icons
@@ -80,6 +81,11 @@ const Sidebar = (props) => {
           label: "Job List",
           icon: <ListAltIcon />,
           to: "/jobs/joblist",
+        },
+        hires: {
+          label: "Hires",
+          icon: <SupervisorAccountIcon />,
+          to: "/jobs/hires",
         },
       },
     },

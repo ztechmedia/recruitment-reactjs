@@ -60,12 +60,15 @@ export default function FeaturedPost(props) {
       >
         <CardActionArea component={Link} to={`/search-jobs/${job._id}`}>
           <CardContent>
-            <Typography variant="h6" color={light ? "textSecondary" : "#ccc"}>
+            <Typography
+              variant="h6"
+              color={light ? "textSecondary" : "inherit"}
+            >
               {job.name}
             </Typography>
             <Typography
               variant="subtitle1"
-              color={light ? "textSecondary" : "#ccc"}
+              color={light ? "textSecondary" : "inherit"}
             >
               {toIdr(job.minSallary)} - {toIdr(job.maxSallary)}
             </Typography>

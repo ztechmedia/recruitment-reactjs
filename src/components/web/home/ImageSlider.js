@@ -46,16 +46,6 @@ const ImageSlider = (props) => {
                     Free Sign Up
                   </Button>
                 </div>
-                <div className={classes.btn}>
-                  <Button
-                    size="small"
-                    variant="outlined"
-                    component={Link}
-                    to="/search-jobs"
-                  >
-                    Search Jobs
-                  </Button>
-                </div>
               </div>
             </Paper>
           </div>

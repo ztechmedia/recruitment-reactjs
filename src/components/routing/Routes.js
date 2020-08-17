@@ -29,6 +29,8 @@ import Jobs from "../../containers/admin/jobs/Jobs";
 import AddJobs from "../../containers/admin/jobs/AddForm";
 import EditJobs from "../../containers/admin/jobs/EditForm";
 import JobApplicants from "../../containers/admin/jobs/JobApplicants";
+import Hires from "../../containers/admin/jobs/hires/Hires";
+import HireDetail from "../../containers/admin/jobs/hires/HireDetail";
 
 //web containers
 import Profile from "../../containers/web/profile/Profile";
@@ -133,6 +135,18 @@ const Routes = (props) => {
               path="/jobs/joblist/:jobId/applicants"
               authorize="admin"
               component={JobApplicants}
+            />
+            <PrivateRoute
+              exact
+              path="/jobs/hires"
+              authorize="admin"
+              component={Hires}
+            />
+            <PrivateRoute
+              exact
+              path="/jobs/hires/:hireId/detail"
+              authorize="admin"
+              component={HireDetail}
             />
             <PrivateRoute
               exact

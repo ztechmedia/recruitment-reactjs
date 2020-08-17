@@ -1,4 +1,7 @@
 import * as actionTypes from "./actionTypes";
+import axios from "../../axios/axios-main";
+import * as alerts from "../../store/actions/alerts";
+import errorHandler from "../../utils/errors";
 
 export const start = () => {
   return {
@@ -283,4 +286,26 @@ export const formSuccess = (success) => {
     type: actionTypes.FORM_USER_SUCCESS,
     success: success,
   };
+};
+
+export const updateEmail = (userId, email) => async (dispatch) => {
+  const data = {
+    email: email,
+  };
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  try {
+    dispatch(start());
+    const response = await axios.put(`/api/v1/users/${userId}`, data, config);
+    dispatch(formSuccess(response.data.success));
+    dispatch(alerts.setAlert("Update email successfuly", "success"));
+  } catch (err) {
+    dispatch(fail());
+    dispatch(errorHandler(err.response.data.error));
+  }
 };

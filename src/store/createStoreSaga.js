@@ -9,6 +9,7 @@ import usersReducer from "./reducers/users";
 import categoriesReducer from "./reducers/categories";
 import jobsReducer from "./reducers/jobs";
 import layoutReducer from "./reducers/layout";
+import hiresLayout from "./reducers/hires";
 import { watchAuth, watchUsers, watchCategories, watchJobs } from "./sagas";
 
 const composeEchancers =
@@ -23,6 +24,7 @@ const rootReducers = combineReducers({
   categories: categoriesReducer,
   jobs: jobsReducer,
   layout: layoutReducer,
+  hires: hiresLayout,
 });
 
 const sagaMiddleware = createSagaMiddleware();

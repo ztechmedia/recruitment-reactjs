@@ -7,7 +7,7 @@ const CustomAlert = ({ alerts }) =>
   alerts.length > 0 &&
   alerts.map((alert) => (
     <Alert
-      style={{ marginBottom: "5px" }}
+      style={{ marginBottom: "5px", width: "100%" }}
       key={alert.id}
       severity={alert.alertType}
     >

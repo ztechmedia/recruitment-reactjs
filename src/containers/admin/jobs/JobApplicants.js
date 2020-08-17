@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, Fragment } from "react";
 import { Link } from "react-router-dom";
+import { toIdr } from "../../../utils/utility";
 import { useSelector, useDispatch } from "react-redux";
 import * as jobActions from "../../../store/actions/jobs";
 import * as modalActions from "../../../store/actions/modal";
@@ -260,7 +261,7 @@ const JobApplicants = (props) => {
       <Grid item md={6} sm={6} xs={12}>
         <Paper className={classes.paper}>
           <Typography variant="subtitle1">Job Name</Typography>
-          <Typography variant="h6">IT Programmer</Typography>
+          <Typography variant="h6">{job ? job.name : null}</Typography>
         </Paper>
       </Grid>
       <Grid item md={6} sm={6} xs={12}>
@@ -275,11 +276,14 @@ const JobApplicants = (props) => {
         >
           <div>
             <Typography variant="subtitle1">Min Degree</Typography>
-            <Typography variant="h6">S1</Typography>
+            <Typography variant="h6">{job ? job.minDegree : null}</Typography>
           </div>
           <div>
             <Typography variant="subtitle1">Sallary</Typography>
-            <Typography variant="subtitle1">Rp8.000.000.00</Typography>
+            <Typography variant="subtitle1">
+              {job ? toIdr(job.minSallary) : null} -{" "}
+              {job ? toIdr(job.maxSallary) : null}
+            </Typography>
           </div>
         </Paper>
       </Grid>

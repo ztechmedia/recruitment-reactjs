@@ -21,6 +21,7 @@ import Background from "../../../assets/images/karir.jpg";
 import Education from "../../../components/web/profile/education/Education";
 import Experience from "../../../components/web/profile/experience/Experience";
 import ProfileDetail from "../../../components/web/profile/profileDetail/ProfileDetail";
+import Account from "../../../components/web/profile/account/AccountDetail";
 
 const PAPER_HEIGHT = window.innerHeight * 0.7;
 
@@ -131,6 +132,8 @@ const Profile = () => {
               variant="contained"
               color={tabActive === "Account" ? "secondary" : "default"}
               size="small"
+              component={Link}
+              to="/profile/account"
               startIcon={<AccountCircleIcon />}
             >
               Account
@@ -160,6 +163,15 @@ const Profile = () => {
             path="/profile/detail"
             render={() => (
               <ProfileDetail
+                onSetTabActive={setTabActive}
+                parentHeight={PAPER_HEIGHT}
+              />
+            )}
+          />
+          <Route
+            path="/profile/account"
+            render={() => (
+              <Account
                 onSetTabActive={setTabActive}
                 parentHeight={PAPER_HEIGHT}
               />

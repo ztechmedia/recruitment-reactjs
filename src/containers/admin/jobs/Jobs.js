@@ -229,11 +229,11 @@ const Jobs = () => {
         </div>
       </Grid>
       <Divider style={{ width: "100%", marginTop: 5, marginBottom: 5 }} />
+      <Alerts />
       <Grid item md={12} sm={12} xs={12} className={classes.resultContainer}>
         <Typography variant="subtitle1">
           Show {startIndex} - {endIndex} from {totalDoc} Jobs
         </Typography>
-        <Alerts />
         <div>
           <IconButton
             size="small"
