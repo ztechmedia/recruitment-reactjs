@@ -2,6 +2,13 @@ import * as actionTypes from "./actionTypes";
 import axios from "../../axios/axios-main";
 import * as alerts from "../../store/actions/alerts";
 import errorHandler from "../../utils/errors";
+import history from "../../utils/history";
+
+const configFormData = {
+  headers: {
+    "Content-Type": "multipart/form-data",
+  },
+};
 
 export const start = () => {
   return {
@@ -306,6 +313,20 @@ export const updateEmail = (userId, email) => async (dispatch) => {
     dispatch(alerts.setAlert("Update email successfuly", "success"));
   } catch (err) {
     dispatch(fail());
+    dispatch(errorHandler(err.response.data.error));
+  }
+};
+
+export const addResume = (resume) => async (dispatch) => {
+  const data = new FormData();
+  try {
+    dispatch(start());
+    data.append("file", resume);
+    await axios.post("/api/v1/users/resume", data, configFormData);
+    dispatch(alerts.setAlert("Resume file has been updated", "success"));
+    history.push("/profile/resume/list");
+  } catch (err) {
+    dispatch(fail(err));
     dispatch(errorHandler(err.response.data.error));
   }
 };

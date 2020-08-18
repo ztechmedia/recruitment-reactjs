@@ -222,17 +222,24 @@ const EnhancedTable = (props) => {
 
               {headCells
                 .filter((cell, i) => i > 0)
-                .map((cell) => (
-                  <TableCell
-                    key={cell.id}
-                    align="left"
-                    onClick={(event) =>
-                      handleClick(event, row._id, multipleDetele)
-                    }
-                  >
-                    {row[cell.id]}
-                  </TableCell>
-                ))}
+                .map((cell) => {
+                  let data = row[cell.id];
+                  if (cell.middleware) {
+                    data = cell.middleware(data);
+                  }
+
+                  return (
+                    <TableCell
+                      key={cell.id}
+                      align="left"
+                      onClick={(event) =>
+                        handleClick(event, row._id, multipleDetele)
+                      }
+                    >
+                      {data}
+                    </TableCell>
+                  );
+                })}
 
               {actions ? (
                 <TableCell align="left">

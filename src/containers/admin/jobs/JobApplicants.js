@@ -25,6 +25,7 @@ import { makeStyles } from "@material-ui/core/styles";
 //ui components
 import Spinner from "../../../components/ui/Spinner/Spinner";
 import Image from "../../../assets/images/face.png";
+import Pdf from "../../../assets/images/pdf.png";
 
 const JobApplicants = (props) => {
   const classes = useStyles();
@@ -191,6 +192,16 @@ const JobApplicants = (props) => {
               >
                 <ListItemAvatar>
                   <Avatar alt="User Face" src={Image} />
+                  {user._id.resume ? (
+                    <a
+                      href={`https://enigmatic-everglades-48569.herokuapp.com/files/${user._id.resume}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      download
+                    >
+                      <Avatar alt="User Face" src={Pdf} />
+                    </a>
+                  ) : null}
                 </ListItemAvatar>
 
                 <div>

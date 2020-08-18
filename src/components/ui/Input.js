@@ -134,6 +134,17 @@ const Input = (props) => {
         </MuiPickersUtilsProvider>
       );
       break;
+    case "file":
+      inputElement = (
+        <TextField
+          {...props.elementConfig}
+          error={inputError}
+          margin="normal"
+          fullWidth={true}
+          onChange={props.changed}
+        />
+      );
+      break;
     default:
       inputElement = (
         <TextField

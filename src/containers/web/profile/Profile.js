@@ -11,6 +11,7 @@ import SchoolIcon from "@material-ui/icons/School";
 import TimelapseIcon from "@material-ui/icons/Timelapse";
 import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import InsertDriveFileIcon from "@material-ui/icons/InsertDriveFile";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -21,6 +22,7 @@ import Background from "../../../assets/images/karir.jpg";
 import Education from "../../../components/web/profile/education/Education";
 import Experience from "../../../components/web/profile/experience/Experience";
 import ProfileDetail from "../../../components/web/profile/profileDetail/ProfileDetail";
+import Resume from "../../../components/web/profile/resume/Resume";
 import Account from "../../../components/web/profile/account/AccountDetail";
 
 const PAPER_HEIGHT = window.innerHeight * 0.7;
@@ -130,6 +132,16 @@ const Profile = () => {
             </Button>
             <Button
               variant="contained"
+              color={tabActive === "Resume" ? "secondary" : "default"}
+              size="small"
+              component={Link}
+              to="/profile/resume/list"
+              startIcon={<InsertDriveFileIcon />}
+            >
+              Resume
+            </Button>
+            <Button
+              variant="contained"
               color={tabActive === "Account" ? "secondary" : "default"}
               size="small"
               component={Link}
@@ -163,6 +175,15 @@ const Profile = () => {
             path="/profile/detail"
             render={() => (
               <ProfileDetail
+                onSetTabActive={setTabActive}
+                parentHeight={PAPER_HEIGHT}
+              />
+            )}
+          />
+          <Route
+            path="/profile/resume"
+            render={() => (
+              <Resume
                 onSetTabActive={setTabActive}
                 parentHeight={PAPER_HEIGHT}
               />

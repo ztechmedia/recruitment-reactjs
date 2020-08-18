@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import moment from "moment";
 import * as usersActions from "../../../../store/actions/users";
 
 //material components
@@ -28,6 +29,7 @@ const headCells = [
     numeric: false,
     disablePadding: false,
     label: "Created At",
+    middleware: (date) => moment(date).format("DD MMMM YYYY"),
   },
 ];
 

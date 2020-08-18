@@ -32,6 +32,7 @@ import { makeStyles } from "@material-ui/core/styles";
 //ui components
 import Spinner from "../../../../components/ui/Spinner/Spinner";
 import Image from "../../../../assets/images/face.png";
+import Pdf from "../../../../assets/images/pdf.png";
 
 const HireDetail = (props) => {
   const classes = useStyles();
@@ -40,6 +41,7 @@ const HireDetail = (props) => {
   const hire = useSelector((state) => state.hires.hire);
   const loading = useSelector((state) => state.hires.formSubmit);
   const [date, setDate] = useState(new Date());
+  const [selectedApp, setSelectedApp] = useState();
 
   const onFetchHire = useCallback(() => {
     dispatch(hiresActions.fetchHire(match.params.hireId));
@@ -70,7 +72,7 @@ const HireDetail = (props) => {
         </div>
       </Fragment>
     );
-
+    setSelectedApp(appId);
     dispatch(modalActions.setModalContent(modal));
   };
 
@@ -114,13 +116,21 @@ const HireDetail = (props) => {
           </MuiPickersUtilsProvider>
         </Grid>
         <Grid item md={8} sm={12} xs={12}>
-          <Typography variant="h6" color="error">
-            {loading ? "Sending email...." : null}
-          </Typography>
-
           <List className={classes.listItems}>
             {hire.applicants.map((app) => {
               let buttonAction;
+              let btnText = (
+                <Typography variant="subtitle1" color="primary">
+                  Click to Invite
+                </Typography>
+              );
+
+              if (loading && selectedApp === app._id)
+                btnText = (
+                  <Typography variant="subtitle1" color="primary">
+                    Sending email...
+                  </Typography>
+                );
 
               if (app.status === "Accepted") {
                 buttonAction = (
@@ -130,10 +140,8 @@ const HireDetail = (props) => {
                       onClick={() => inviteHandler(app._id)}
                     >
                       <EmailIcon color="primary" />
+                      {btnText}
                     </IconButton>
-                    <Typography variant="subtitle1" color="primary">
-                      Click to Invite
-                    </Typography>
                   </Fragment>
                 );
               } else {
@@ -154,6 +162,16 @@ const HireDetail = (props) => {
                   <ListItem alignItems="flex-start">
                     <ListItemAvatar>
                       <Avatar alt="User Face" src={Image} />
+                      {app.user.resume ? (
+                        <a
+                          href={`https://enigmatic-everglades-48569.herokuapp.com/files/${app.user.resume}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          download
+                        >
+                          <Avatar alt="User Face" src={Pdf} />
+                        </a>
+                      ) : null}
                     </ListItemAvatar>
 
                     <div>
