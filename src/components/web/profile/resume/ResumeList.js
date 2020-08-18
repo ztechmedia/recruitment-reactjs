@@ -49,7 +49,7 @@ export default function EducationList() {
 
           <CardActions>
             <a
-              href={`http://localhost:5000/files/${user.resume}`}
+              href={`https://enigmatic-everglades-48569.herokuapp.com/files/${user.resume}`}
               target="_blank"
               rel="noopener noreferrer"
               download
