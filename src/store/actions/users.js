@@ -322,9 +322,16 @@ export const addResume = (resume) => async (dispatch) => {
   try {
     dispatch(start());
     data.append("file", resume);
-    await axios.post("/api/v1/users/resume", data, configFormData);
-    dispatch(alerts.setAlert("Resume file has been updated", "success"));
-    history.push("/profile/resume/list");
+    const response = await axios.post(
+      "/api/v1/users/resume",
+      data,
+      configFormData
+    );
+
+    if (response.data.success) {
+      dispatch(alerts.setAlert("Resume file has been updated", "success"));
+      history.push("/profile/resume/list");
+    }
   } catch (err) {
     dispatch(fail(err));
     dispatch(errorHandler(err.response.data.error));
