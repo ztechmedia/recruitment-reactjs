@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect, Fragment } from "react";
 import { Link } from "react-router-dom";
 import { toIdr } from "../../../../utils/utility";
+import download from "downloadjs";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import * as hiresActions from "../../../../store/actions/hires";
@@ -160,19 +161,35 @@ const HireDetail = (props) => {
               return (
                 <React.Fragment key={app._id}>
                   <ListItem alignItems="flex-start">
-                    <ListItemAvatar>
-                      <Avatar alt="User Face" src={Image} />
-                      {app.user.resume ? (
-                        <a
-                          href={`https://enigmatic-everglades-48569.herokuapp.com/files/${app.user.resume}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          download
-                        >
-                          <Avatar alt="User Face" src={Pdf} />
-                        </a>
-                      ) : null}
-                    </ListItemAvatar>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <ListItemAvatar>
+                        <Avatar alt="User Face" src={Image} />
+                      </ListItemAvatar>
+
+                      <ListItemAvatar>
+                        {app.user.resume ? (
+                          <Avatar
+                            alt="User Face"
+                            src={Pdf}
+                            onClick={async () => {
+                              console.log(app.user.resume);
+                              const res = await fetch(
+                                `https://enigmatic-everglades-48569.herokuapp.com/api/v1/users/resume/${app.user.resume}`
+                              );
+                              const blob = await res.blob();
+                              download(blob, app.user.resume);
+                            }}
+                          />
+                        ) : null}
+                      </ListItemAvatar>
+                    </div>
 
                     <div>
                       <ListItemText primary={app.user.name} />

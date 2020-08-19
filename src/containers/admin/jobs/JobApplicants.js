@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, Fragment } from "react";
 import { Link } from "react-router-dom";
 import { toIdr } from "../../../utils/utility";
 import { useSelector, useDispatch } from "react-redux";
+import download from "downloadjs";
 import * as jobActions from "../../../store/actions/jobs";
 import * as modalActions from "../../../store/actions/modal";
 
@@ -190,19 +191,35 @@ const JobApplicants = (props) => {
                 alignItems="flex-start"
                 style={textColor ? { color: textColor } : null}
               >
-                <ListItemAvatar>
-                  <Avatar alt="User Face" src={Image} />
-                  {user._id.resume ? (
-                    <a
-                      href={`https://enigmatic-everglades-48569.herokuapp.com/files/${user._id.resume}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      download
-                    >
-                      <Avatar alt="User Face" src={Pdf} />
-                    </a>
-                  ) : null}
-                </ListItemAvatar>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  {" "}
+                  <ListItemAvatar>
+                    <Avatar alt="User Face" src={Image} />
+                  </ListItemAvatar>
+                  <ListItemAvatar>
+                    {user._id.resume ? (
+                      <Avatar
+                        alt="User Face"
+                        src={Pdf}
+                        onClick={async () => {
+                          console.log(user._id.resume);
+                          const res = await fetch(
+                            `https://enigmatic-everglades-48569.herokuapp.com/api/v1/users/resume/${user._id.resume}`
+                          );
+                          const blob = await res.blob();
+                          download(blob, user._id.resume);
+                        }}
+                      />
+                    ) : null}
+                  </ListItemAvatar>
+                </div>
 
                 <div>
                   <ListItemText primary={user._id.name} />

@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import download from "downloadjs";
 import * as usersActions from "../../../../store/actions/users";
 
 //material components
@@ -48,17 +49,20 @@ export default function EducationList() {
           </CardActionArea>
 
           <CardActions>
-            <a
-              href={`https://enigmatic-everglades-48569.herokuapp.com/files/${user.resume}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              download
-              style={{ textDecoration: "none" }}
+            <Button
+              size="small"
+              variant="outlined"
+              color="default"
+              onClick={async () => {
+                const res = await fetch(
+                  `https://enigmatic-everglades-48569.herokuapp.com/api/v1/users/resume/${user.resume}`
+                );
+                const blob = await res.blob();
+                download(blob, user.resume);
+              }}
             >
-              <Button size="small" variant="outlined" color="default">
-                Download
-              </Button>
-            </a>
+              Download
+            </Button>
           </CardActions>
         </Card>
       </Grid>
