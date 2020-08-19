@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import download from "downloadjs";
 import * as usersActions from "../../../../store/actions/users";
 
 //material components
@@ -53,13 +52,7 @@ export default function EducationList() {
               size="small"
               variant="outlined"
               color="default"
-              onClick={async () => {
-                const res = await fetch(
-                  `https://enigmatic-everglades-48569.herokuapp.com/api/v1/users/resume/${user.resume}`
-                );
-                const blob = await res.blob();
-                download(blob, user.resume);
-              }}
+              onClick={() => usersActions.downloadResume(user.resume)}
             >
               Download
             </Button>

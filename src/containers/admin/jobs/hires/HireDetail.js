@@ -1,11 +1,11 @@
 import React, { useState, useCallback, useEffect, Fragment } from "react";
 import { Link } from "react-router-dom";
 import { toIdr } from "../../../../utils/utility";
-import download from "downloadjs";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import * as hiresActions from "../../../../store/actions/hires";
 import * as modalActions from "../../../../store/actions/modal";
+import * as usersActions from "../../../../store/actions/users";
 
 //material components
 import Grid from "@material-ui/core/Grid";
@@ -173,22 +173,17 @@ const HireDetail = (props) => {
                         <Avatar alt="User Face" src={Image} />
                       </ListItemAvatar>
 
-                      <ListItemAvatar>
-                        {app.user.resume ? (
+                      {app.user.resume ? (
+                        <ListItemAvatar>
                           <Avatar
                             alt="User Face"
                             src={Pdf}
-                            onClick={async () => {
-                              console.log(app.user.resume);
-                              const res = await fetch(
-                                `https://enigmatic-everglades-48569.herokuapp.com/api/v1/users/resume/${app.user.resume}`
-                              );
-                              const blob = await res.blob();
-                              download(blob, app.user.resume);
-                            }}
+                            onClick={() =>
+                              usersActions.downloadResume(app.user.resume)
+                            }
                           />
-                        ) : null}
-                      </ListItemAvatar>
+                        </ListItemAvatar>
+                      ) : null}
                     </div>
 
                     <div>

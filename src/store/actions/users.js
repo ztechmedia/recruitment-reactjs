@@ -3,6 +3,7 @@ import axios from "../../axios/axios-main";
 import * as alerts from "../../store/actions/alerts";
 import errorHandler from "../../utils/errors";
 import history from "../../utils/history";
+import download from "downloadjs";
 
 const configFormData = {
   headers: {
@@ -336,4 +337,17 @@ export const addResume = (resume) => async (dispatch) => {
     dispatch(fail(err));
     dispatch(errorHandler(err.response.data.error));
   }
+};
+
+export const downloadResume = async (fileName) => {
+  // const res = await axios.get(`/api/v1/users/resume/${fileName}`);
+  // const blob = await res.blob();
+  // download(blob, fileName);
+  axios({
+    method: "get",
+    url: `/api/v1/users/resume/${fileName}`,
+    responseType: "blob",
+  }).then(function (response) {
+    download(response.data, fileName);
+  });
 };
